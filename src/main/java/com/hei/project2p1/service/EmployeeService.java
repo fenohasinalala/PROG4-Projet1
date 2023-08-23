@@ -5,6 +5,7 @@ import com.hei.project2p1.model.Employee;
 import com.hei.project2p1.model.Phone;
 import com.hei.project2p1.model.Validator.PhoneValidator;
 import com.hei.project2p1.repository.EmployeeConnectorRepository;
+import com.hei.project2p1.repository.entity.validator.EmployeeEntityValidator;
 import com.hei.project2p1.utils.PaginationUtils;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;

@@ -52,27 +52,29 @@ public class FirmEmployeeConnectorRepository implements EmployeeConnectorReposit
 
     @Override
     public Employee addSupplementaryInformation(String id, Employee toSupply) {
-        Optional<EmployeeEntity> employee = repository.findById(id);
-        employee.ifPresent(toAdd -> {
-            toSupply.setId(toAdd.getId());
-            toSupply.setAddress(toAdd.getAddress());
-            toSupply.setBirthDate(toAdd.getBirthDate());
-            toSupply.setCinIssueDate(toAdd.getCinIssueDate());
-            toSupply.setCinIssuePlace(toAdd.getCinIssuePlace());
-            toSupply.setCinNumber(toAdd.getCinNumber());
-            toSupply.setDepartureDate(toAdd.getDepartureDate());
-            toSupply.setFirstName(toAdd.getFirstName());
-            toSupply.setFunction(toAdd.getFunction());
-            toSupply.setGender(Employee.Gender.valueOf(toAdd.getGender().toString()));
-            toSupply.setHiringDate(toAdd.getHiringDate());
-            toSupply.setLastName(toAdd.getLastName());
-            toSupply.setNumberOfChildren(toAdd.getNumberOfChildren());
-            toSupply.setPersonalEmail(toAdd.getPersonalEmail());
-            toSupply.setPhoto(toAdd.getPhoto());
-            toSupply.setProfessionalEmail(toAdd.getProfessionalEmail());
-            toSupply.setRegistrationNo(toAdd.getRegistrationNo());
-            toSupply.setSocioProfessionalCategory(Employee.SocioProfessionalCategory.valueOf(toAdd.getSocioProfessionalCategory().toString()));
-        });
+        if (id!=null && !id.isEmpty()) {
+            Optional<EmployeeEntity> employee = repository.findById(id);
+            employee.ifPresent(toAdd -> {
+                toSupply.setId(toAdd.getId());
+                toSupply.setAddress(toAdd.getAddress());
+                toSupply.setBirthDate(toAdd.getBirthDate());
+                toSupply.setCinIssueDate(toAdd.getCinIssueDate());
+                toSupply.setCinIssuePlace(toAdd.getCinIssuePlace());
+                toSupply.setCinNumber(toAdd.getCinNumber());
+                toSupply.setDepartureDate(toAdd.getDepartureDate());
+                toSupply.setFirstName(toAdd.getFirstName());
+                toSupply.setFunction(toAdd.getFunction());
+                toSupply.setGender(Employee.Gender.valueOf(toAdd.getGender().toString()));
+                toSupply.setHiringDate(toAdd.getHiringDate());
+                toSupply.setLastName(toAdd.getLastName());
+                toSupply.setNumberOfChildren(toAdd.getNumberOfChildren());
+                toSupply.setPersonalEmail(toAdd.getPersonalEmail());
+                toSupply.setPhoto(toAdd.getPhoto());
+                toSupply.setProfessionalEmail(toAdd.getProfessionalEmail());
+                toSupply.setRegistrationNo(toAdd.getRegistrationNo());
+                toSupply.setSocioProfessionalCategory(Employee.SocioProfessionalCategory.valueOf(toAdd.getSocioProfessionalCategory().toString()));
+            });
+        }
         return toSupply;
     }
 

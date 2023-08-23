@@ -10,15 +10,16 @@ import com.hei.project2p1.repository.firm.EmployeeRepository;
 import com.hei.project2p1.repository.firm.mapper.EmployeeMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@org.springframework.stereotype.Repository
+@Repository
 @AllArgsConstructor
-public class RepositoryImpl implements Repository {
+public class CnapsEmployeeConnectorRepository implements EmployeeConnectorRepository {
     private EmployeeRepository mainRepository;
     private EmployeeCnapsRepository cnapsRepository;
     private final EmployeeEntityDao employeeDao;
@@ -65,6 +66,11 @@ public class RepositoryImpl implements Repository {
             toDisplay.add(setCnapsNumber(e.getEndToEndId(),mapper.toDomain(e)));
         }
         return toDisplay;
+    }
+
+    @Override
+    public Employee addSupplementaryInformation(String id, Employee toSupply) {
+        return null;
     }
 
     private Employee setCnapsNumber(String employeeCnapsId, Employee employee){

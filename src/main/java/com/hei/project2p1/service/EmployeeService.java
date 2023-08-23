@@ -4,9 +4,7 @@ import com.hei.project2p1.exception.BadRequestException;
 import com.hei.project2p1.model.Employee;
 import com.hei.project2p1.model.Phone;
 import com.hei.project2p1.model.Validator.PhoneValidator;
-import com.hei.project2p1.repository.Repository;
-import com.hei.project2p1.repository.firm.entity.validator.EmployeeEntityValidator;
-import com.hei.project2p1.repository.firm.mapper.EmployeeMapper;
+import com.hei.project2p1.repository.EmployeeConnectorRepository;
 import com.hei.project2p1.utils.PaginationUtils;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -25,27 +23,24 @@ public class EmployeeService {
     private final String REGISTRATION_PREFIX = "EMP";
     private final RegistrationNoTrackerService registrationNoTrackerService;
 
-    private  final EmployeeMapper employeeMapper;
-    private final Repository repository;
+    private final EmployeeConnectorRepository employeeConnectorRepository;
     private final PhoneService phoneService;
     private final PhoneValidator phoneValidator;
-    private final EmployeeEntityValidator employeeEntityValidator;
 
 
     public Employee getEmployeeById(String id){
-        return repository.findById(id);
+        return employeeConnectorRepository.findById(id);
     }
 
     public long getTotalPages(int pageSize){
-        double totalCount = repository.count();
+        double totalCount = employeeConnectorRepository.count();
         return PaginationUtils.getTotalPages(totalCount,pageSize);
     }
 
     @Transactional
     public Employee save(Employee employee,List<String> countryCode, List<String> phonesNo) {
         Employee toSave = autoSetRegNo(employee);
-        employeeEntityValidator.accept(employeeMapper.toEntity(employee));
-        Employee saved = repository.save(toSave);
+        Employee saved = employeeConnectorRepository.save(toSave);
         List<Phone> phones = phoneService.addPhonesToOwner(saved,countryCode,phonesNo);
         phoneValidator.accept(phones);
 
@@ -106,7 +101,7 @@ public class EmployeeService {
         Pageable pageable = PageRequest.of(pageNo-1, pageSize, sort);
 
         // Perform the search using the EmployeeRepository
-        return repository.findByCriteria(
+        return employeeConnectorRepository.findByCriteria(
                 firstName, lastName,function,countryCode, gender,
                 entranceDateAfter, entranceDateBefore, leaveDateAfter, leaveDateBefore, pageable);
     }

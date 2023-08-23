@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface Repository {
+public interface EmployeeConnectorRepository {
     double count();
 
     Employee save(Employee toSave);
@@ -17,4 +17,7 @@ public interface Repository {
                                   String gender, LocalDate entranceDateAfter, LocalDate entranceDateBefore,
                                   LocalDate leaveDateAfter, LocalDate leaveDateBefore,
                                   Pageable pageable);
+
+    Employee addSupplementaryInformation(String id, Employee toSupply);
+
 }

@@ -1,7 +1,6 @@
 package com.hei.project2p1.repository;
 
 import com.hei.project2p1.model.Employee;
-import com.hei.project2p1.repository.cnaps.EmployeeCnapsRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Pageable;
@@ -16,12 +15,12 @@ import java.util.List;
 public class EmployeeConnectorRepositoryFacade implements EmployeeConnectorRepository {
 
     private final FirmEmployeeConnectorRepository firmRepository;
-    private final EmployeeCnapsRepository cnapsRepository;
+    private final CnapsEmployeeConnectorRepository cnapsRepository;
 
     private EmployeeConnectorRepository getCombineRepository(){
         //Primary repository (to be specified in the supplementary repositories): firmRepository
         //Supplementary repository: [CnapsEmployeeConnectorRepository]
-        return new CnapsEmployeeConnectorRepository(firmRepository,cnapsRepository);
+        return new CnapsEmployeeSupplyRepository(firmRepository,cnapsRepository);
     }
 
 

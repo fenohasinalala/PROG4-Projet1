@@ -1,58 +1,52 @@
 package com.hei.project2p1.repository;
 
-import com.hei.project2p1.repository.cnaps.entity.EmployeeCnapsEntity;
-import com.hei.project2p1.repository.cnaps.EmployeeCnapsRepository;
 import com.hei.project2p1.model.Employee;
+import com.hei.project2p1.repository.cnaps.EmployeeCnapsRepository;
+import com.hei.project2p1.repository.cnaps.entity.EmployeeCnapsEntity;
+import com.hei.project2p1.repository.cnaps.mapper.EmployeeCnapsMapper;
 import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 @AllArgsConstructor
 public class CnapsEmployeeConnectorRepository implements EmployeeConnectorRepository {
-    private EmployeeConnectorRepository toComplete;
-    private EmployeeCnapsRepository mainRepository;
+    private EmployeeCnapsRepository repository;
+    private EmployeeCnapsMapper mapper;
+    private static final String UNSUPPORTED_ERROR_MESSAGE = "Unsupported: only getting methods are!";
 
     @Override
     public double count() {
-        return toComplete.count();
+        throw new NotImplementedException(UNSUPPORTED_ERROR_MESSAGE);
     }
 
     @Override
     public Employee save(Employee toSave) {
-        return toComplete.save(toSave);
-    }
+        throw new NotImplementedException(UNSUPPORTED_ERROR_MESSAGE);    }
 
 
     @Override
     public Employee findById(String id) {
-        Employee employee = toComplete.findById(id);
-        return addSupplementaryInformation(employee.getEndToEndId(),employee);
+        EmployeeCnapsEntity employee = repository.findById(id).orElse(null);
+        if (employee==null){
+            return null;
+        }
+        return mapper.toDomain(employee);
     }
 
     @Override
     public List<Employee> findByCriteria(String firstName, String lastName, String function, String countryCode,
                                          String gender, LocalDate entranceDateAfter, LocalDate entranceDateBefore,
                                          LocalDate leaveDateAfter, LocalDate leaveDateBefore, Pageable pageable) {
-        List<Employee> toDisplay = toComplete.findByCriteria(
-                firstName, lastName,function,countryCode, gender,
-                entranceDateAfter, entranceDateBefore, leaveDateAfter, leaveDateBefore, pageable);
-        return toDisplay.stream().map(e->addSupplementaryInformation(e.getEndToEndId(),e)).toList();
+        throw new NotImplementedException(UNSUPPORTED_ERROR_MESSAGE);
     }
 
     @Override
     public Employee addSupplementaryInformation(String id, Employee toSupply) {
-        if (id!=null && !id.isEmpty()){
-            Optional<EmployeeCnapsEntity> employee = mainRepository.findById(id);
-            employee.ifPresent(toAdd -> {
-                toSupply.setCnapsNumber(toAdd.getCnapsNumber());
-            });
-        }
-        return toSupply;
+        throw new NotImplementedException(UNSUPPORTED_ERROR_MESSAGE);
     }
-
 }

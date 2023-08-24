@@ -1,7 +1,7 @@
-package com.hei.project2p1.repository.firm.mapper;
+package com.hei.project2p1.repository.cnaps.mapper;
 
 import com.hei.project2p1.model.Employee;
-import com.hei.project2p1.repository.firm.entity.EmployeeEntity;
+import com.hei.project2p1.repository.cnaps.entity.EmployeeCnapsEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -9,10 +9,9 @@ import java.util.List;
 
 @Component
 @AllArgsConstructor
-public class EmployeeMapper {
-    private final PhoneMapper phoneMapper;
+public class EmployeeCnapsMapper {
 
-    public Employee toDomain(EmployeeEntity entity) {
+    public Employee toDomain(EmployeeCnapsEntity entity) {
         return Employee.builder()
                 .id(entity.getId())
                 .registrationNo(entity.getRegistrationNo())
@@ -20,7 +19,7 @@ public class EmployeeMapper {
                 .lastName(entity.getLastName())
                 .birthDate(entity.getBirthDate())
                 .gender(entity.getGender()==null?null:Employee.Gender.valueOf(entity.getGender().toString()))
-                .phones(entity.getPhones().stream().map(phoneMapper::toDomain).toList())
+                .phones(List.of())
                 .address(entity.getAddress())
                 .personalEmail(entity.getPersonalEmail())
                 .professionalEmail(entity.getProfessionalEmail())
@@ -34,18 +33,17 @@ public class EmployeeMapper {
                 .socioProfessionalCategory(entity.getSocioProfessionalCategory()==null?null:Employee.SocioProfessionalCategory.valueOf(entity.getSocioProfessionalCategory().toString()))
                 .cnapsNumber(entity.getCnapsNumber())
                 .photo(entity.getPhoto())
-                .endToEndId(entity.getEndToEndId())
                 .build();
     }
 
-    public EmployeeEntity toEntity(Employee domain) {
-        return EmployeeEntity.builder()
+    public EmployeeCnapsEntity toEntity(Employee domain) {
+        return EmployeeCnapsEntity.builder()
                 .id(domain.getId())
                 .registrationNo(domain.getRegistrationNo())
                 .firstName(domain.getFirstName())
                 .lastName(domain.getLastName())
                 .birthDate(domain.getBirthDate())
-                .gender(domain.getGender()==null?null:EmployeeEntity.Gender.valueOf(domain.getGender().toString()))
+                .gender(domain.getGender()==null?null:EmployeeCnapsEntity.Gender.valueOf(domain.getGender().toString()))
                 .phones(List.of())
                 .address(domain.getAddress())
                 .personalEmail(domain.getPersonalEmail())
@@ -57,10 +55,9 @@ public class EmployeeMapper {
                 .numberOfChildren(domain.getNumberOfChildren())
                 .hiringDate(domain.getHiringDate())
                 .departureDate(domain.getDepartureDate())
-                .socioProfessionalCategory(domain.getSocioProfessionalCategory()==null?null:EmployeeEntity.SocioProfessionalCategory.valueOf(domain.getSocioProfessionalCategory().toString()))
+                .socioProfessionalCategory(domain.getSocioProfessionalCategory()==null?null:EmployeeCnapsEntity.SocioProfessionalCategory.valueOf(domain.getSocioProfessionalCategory().toString()))
                 .cnapsNumber(domain.getCnapsNumber())
                 .photo(domain.getPhoto())
-                .endToEndId(domain.getEndToEndId())
                 .build();
     }
 

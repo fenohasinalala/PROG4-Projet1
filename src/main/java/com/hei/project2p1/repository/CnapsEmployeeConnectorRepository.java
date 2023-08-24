@@ -19,7 +19,7 @@ public class CnapsEmployeeConnectorRepository implements EmployeeConnectorReposi
 
     @Override
     public double count() {
-        return mainRepository.count();
+        return toComplete.count();
     }
 
     @Override

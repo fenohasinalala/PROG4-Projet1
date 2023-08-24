@@ -1,7 +1,7 @@
 package com.hei.project2p1.repository;
 
-import com.hei.project2p1.cnaps.repository.EmployeeCnapsRepository;
 import com.hei.project2p1.model.Employee;
+import com.hei.project2p1.repository.cnaps.EmployeeCnapsRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Pageable;

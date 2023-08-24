@@ -2,10 +2,11 @@ package com.hei.project2p1.repository;
 
 import com.hei.project2p1.exception.NotFoundException;
 import com.hei.project2p1.model.Employee;
-import com.hei.project2p1.repository.dao.EmployeeEntityDao;
-import com.hei.project2p1.repository.entity.EmployeeEntity;
-import com.hei.project2p1.repository.entity.validator.EmployeeEntityValidator;
-import com.hei.project2p1.repository.mapper.EmployeeMapper;
+import com.hei.project2p1.repository.firm.EmployeeRepository;
+import com.hei.project2p1.repository.firm.dao.EmployeeEntityDao;
+import com.hei.project2p1.repository.firm.entity.EmployeeEntity;
+import com.hei.project2p1.repository.firm.entity.validator.EmployeeEntityValidator;
+import com.hei.project2p1.repository.firm.mapper.EmployeeMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;

@@ -4,6 +4,7 @@ import com.hei.project2p1.exception.NotFoundException;
 import com.hei.project2p1.model.Employee;
 import com.hei.project2p1.repository.dao.EmployeeEntityDao;
 import com.hei.project2p1.repository.entity.EmployeeEntity;
+import com.hei.project2p1.repository.entity.validator.EmployeeEntityValidator;
 import com.hei.project2p1.repository.mapper.EmployeeMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +20,7 @@ public class FirmEmployeeConnectorRepository implements EmployeeConnectorReposit
     private EmployeeRepository repository;
     private final EmployeeEntityDao employeeDao;
     private final EmployeeMapper mapper;
-
+    private final EmployeeEntityValidator validator;
     @Override
     public double count() {
         return repository.count();
@@ -27,8 +28,14 @@ public class FirmEmployeeConnectorRepository implements EmployeeConnectorReposit
 
     @Override
     public Employee save(Employee toSave) {
+        if (toSave.getId()!=null){
+            Optional<EmployeeEntity> existingEmployee = repository.findById(toSave.getId());
+            existingEmployee.ifPresent(present -> toSave.setEndToEndId(present.getCnapsEndToEndId()));
+        }
+        EmployeeEntity entityToSave = mapper.toEntity(toSave);
+        validator.accept(entityToSave);
         return mapper.toDomain(
-                repository.save(mapper.toEntity(toSave)));
+                repository.save(entityToSave));
     }
 
 

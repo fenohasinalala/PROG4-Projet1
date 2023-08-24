@@ -19,7 +19,7 @@ public class EmployeeConnectorRepositoryFacade implements EmployeeConnectorRepos
 
     private EmployeeConnectorRepository getCombineRepository(){
         //Primary repository (to be specified in the supplementary repositories): firmRepository
-        //Supplementary repository: [CnapsEmployeeConnectorRepository]
+        //Supplementary repository: [CnapsEmployeeSupplyRepository]
         return new CnapsEmployeeSupplyRepository(firmRepository,cnapsRepository);
     }
 

@@ -31,7 +31,7 @@ public class FirmEmployeeConnectorRepository implements EmployeeConnectorReposit
     public Employee save(Employee toSave) {
         if (toSave.getId()!=null){
             Optional<EmployeeEntity> existingEmployee = repository.findById(toSave.getId());
-            existingEmployee.ifPresent(present -> toSave.setEndToEndId(present.getCnapsEndToEndId()));
+            existingEmployee.ifPresent(present -> toSave.setEndToEndId(present.getEndToEndId()));
         }
         EmployeeEntity entityToSave = mapper.toEntity(toSave);
         validator.accept(entityToSave);
